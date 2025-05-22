@@ -84,26 +84,27 @@ int ft_numlen(unsigned long n, int base)
     return len;
 }
 
+int ft_puthex_ulong(unsigned long n)
+{
+    char *base = "0123456789abcdef";
+    int count = 0;
+
+    if (n >= 16)
+        count += ft_puthex_ulong(n / 16);
+    count += ft_putchar(base[n % 16]);
+    return count;
+}
+
 int ft_putptr(void *ptr)
 {
     unsigned long addr;
     int count;
-    // int width;
-    // int i;
 
     addr = (unsigned long)ptr;
     count = 0;
     count += ft_putstr("0x");
     if(!addr)
-        return count += ft_putstr("0");
-    // i = ft_numlen(addr, 16);
-    // width = (sizeof(void *) * 2);
-
-    // while(i < width)
-    // {
-    //     count += ft_putchar('0');
-    //     i++;
-    // }
-    count += ft_puthex(addr, 0);
+        return count += ft_putchar('0');
+    count += ft_puthex_ulong(addr);
     return count;
 }
