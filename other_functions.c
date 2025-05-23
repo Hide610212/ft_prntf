@@ -100,11 +100,11 @@ int ft_putptr(void *ptr)
     unsigned long addr;
     int count;
 
+    if (!ptr)
+        return ft_putstr("(nil)");
     addr = (unsigned long)ptr;
     count = 0;
     count += ft_putstr("0x");
-    if(!addr)
-        return count += ft_putchar('0');
     count += ft_puthex_ulong(addr);
     return count;
 }
