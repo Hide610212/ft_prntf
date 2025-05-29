@@ -1,30 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test_ft_printf.c                                   :+:      :+:    :+:   */
+/*   other_functions_2.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hmuto <hmuto@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/28 14:13:40 by hmuto             #+#    #+#             */
-/*   Updated: 2025/05/28 15:48:47 by hmuto            ###   ########.fr       */
+/*   Created: 2025/05/28 15:34:38 by hmuto             #+#    #+#             */
+/*   Updated: 2025/05/28 15:35:10 by hmuto            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include <stdio.h>
 
-int	main(void)
+int	ft_puthex_ulong(unsigned long n)
 {
-	void	*a;
-	void	*b;
-	int		std_ret;
-	int		ft_ret;
+	char	*base;
+	int		count;
 
-	a = NULL;
-	b = NULL;
-	std_ret = printf("STD: [%p] [%p]\n", a, b);
-	ft_ret = ft_printf("FT : [%p] [%p]\n", a, b);
-	printf("STD returned: %d\n", std_ret);
-	printf("FT  returned: %d\n", ft_ret);
-	return (0);
+	base = "0123456789abcdef";
+	count = 0;
+	if (n >= 16)
+		count += ft_puthex_ulong(n / 16);
+	count += ft_putchar(base[n % 16]);
+	return (count);
+}
+
+int	ft_putptr(void *ptr)
+{
+	unsigned long	addr;
+	int				count;
+
+	if (!ptr)
+		return (ft_putstr("(nil)"));
+	addr = (unsigned long)ptr;
+	count = 0;
+	count += ft_putstr("0x");
+	count += ft_puthex_ulong(addr);
+	return (count);
 }
